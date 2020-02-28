@@ -104,12 +104,6 @@ class Simunet(nn.Module):
 
     def Realnet(self, num_node):
 
-        # N = ciw.create_network(
-        #     arrival_distributions=[ciw.dists.Exponential(self.param[0])],
-        #     service_distributions=[ciw.dists.Exponential(self.param[1])],
-        #     number_of_servers=[3]
-        # )
-
         N = ciw.create_network(
             arrival_distributions=[ciw.dists.Exponential(self.param[0]),
                                    ciw.dists.Exponential(self.param[1]),
