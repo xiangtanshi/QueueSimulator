@@ -7,7 +7,7 @@ import random
 class Simunet(nn.Module):
     def __init__(self):
         super(Simunet,self).__init__()
-        self.param = torch.tensor([0.3,0.2,0.7,0.4,0.5])
+        self.param = torch.tensor([0.4,0.3,0.7,0.4,0.5])
         self.params1 = nn.Parameter(torch.Tensor([0.9,0.9]))
         self.params2 = nn.Parameter(torch.Tensor([0.9]))
         self.params3 = nn.Parameter(torch.Tensor([0.9,0.9,0]))
@@ -15,7 +15,7 @@ class Simunet(nn.Module):
     def seq_process(self,seq,flag):
         length = len(seq)
 
-        if length < 55:
+        if length < 57:
             print('length:',length)
             raise KeyboardInterrupt
         elif flag == 1:
@@ -23,7 +23,26 @@ class Simunet(nn.Module):
                 seq[i] = seq[i] - seq[0]
             return seq[1:51]
         else:
-            return seq[1:51]
+            temp = seq[1:55]
+            mean1 = sum(temp[0:15])/15
+            mean2 = sum(temp[10:25])/15
+            mean3 = sum(temp[20:35])/15
+            mean4 = sum(temp[30:45])/15
+            mean5 = sum(temp[40:55])/15
+            result = []
+            for i in range(50):
+                if i<10:
+                    result.append(mean1)
+                elif i<20:
+                    result.append(mean2)
+                elif i<30:
+                    result.append(mean3)
+                elif i<40:
+                    result.append(mean4)
+                else:
+                    result.append(mean5)
+
+            return result
 
     def recs_parser(self,recs, node_num,cus_num):
         '''
@@ -68,12 +87,12 @@ class Simunet(nn.Module):
             e = self.seq_process(ser,2)
             ser_info.extend(e)
 
-            node_block = {r.id_number:r.time_blocked for r in recs if r.node == i and r.id_number < cus_num-5}
-            block = [node_block[x] for x in index]
-            e = self.seq_process(block,2)
-            block_info.extend(e)
+            # node_block = {r.id_number:r.time_blocked for r in recs if r.node == i and r.id_number < cus_num-5}
+            # block = [node_block[x] for x in index]
+            # e = self.seq_process(block,2)
+            # block_info.extend(e)
 
-        ciw_data = arri_info + wait_info + ser_s_info + ser_e_info + ser_info + block_info
+        ciw_data = arri_info + ser_s_info + ser_e_info + ser_info + wait_info
         num = len(ciw_data)
         result = torch.zeros(num)
         for i in range(num):
@@ -132,14 +151,12 @@ class Simulator(object):
     def __init__(self):
         self.model = Simunet()
         self.learning_rate_1 = 0.002
-        self.learning_rate_2 = 0.02
-        self.learning_rate_3 = 0.001
-        self.EPOCH = 400
+        self.learning_rate_2 = 0.007
+        self.EPOCH = 300
         self.up_weight_cliping_limit = 1.0
         self.dowm_weight_cliping_limit = 0.001
         self.optimizer_1 = torch.optim.RMSprop(self.model.parameters(),lr=self.learning_rate_1)
         self.optimizer_2 = torch.optim.RMSprop(self.model.parameters(),lr=self.learning_rate_2)
-        self.optimizer_3 = torch.optim.RMSprop(self.model.parameters(),lr=self.learning_rate_3)
         self.criterion = nn.SmoothL1Loss()
         self.node_num = 3
 
@@ -150,8 +167,8 @@ class Simulator(object):
             self.optimizer_2.zero_grad()
             for p in self.model.parameters():
                 p.data.clamp_(self.dowm_weight_cliping_limit,self.up_weight_cliping_limit)
-                # if 115>iter>25 and len(p)==2:
-                #     p.requires_grad = False
+                if iter>100 and len(p)==2:
+                    p.requires_grad = False
                 # elif 115>iter>90 and len(p)==1:
                 #     p.requires_grad =False
                 # else:
@@ -164,12 +181,10 @@ class Simulator(object):
             loss = self.criterion(simu_data,real_data)
             loss.backward()
             self.optimizer_1.step()
-            # if iter<65:
-            #     self.optimizer_1.step()
-            # elif 65<iter<130 and iter%5==0:
-            #     self.optimizer_2.step()
-            # else:
-            #     self.optimizer_3.step()
+            if iter<100:
+                self.optimizer_1.step()
+            elif 100<iter and iter%10==0:
+                self.optimizer_2.step()
             if iter % 5 == 0:
                 print('Epoch:{}, Loss:{}'.format(iter, loss.item()))
                 for name, param in self.model.named_parameters():
@@ -183,9 +198,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
