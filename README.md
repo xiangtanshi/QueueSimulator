@@ -1,9 +1,11 @@
-#  Intro of the repo(version 1)  
+#  Intro of the repo(version2)  
   *components of the repo:  
   1. ciw module  
   2. queue simulator model code  
   3. experiments and results  
   4. current problems that needs to be solved  
+
+
 
 __how to use the modified ciw module?__  
 first create a new env(python version = 3.6) with anaconda, install pytorch and ciw, the replace the ciw module with the unzipped package in the repo.  
@@ -13,10 +15,13 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 
 __codes,expriment results__  
-the codes I ran in the past few days have already been uploaded, and it still requires further fix. The expriment results are waiting to be updated  
+The codes(queue_simulator.py) and corresponding running results have already been uploaded, and it solves the problems of simulating   complex queue network with known structure and unknown continuous parameters.  
+The codes(queue_simulator.py) utilizes the SmoothL1loss function and serves for 2 purposes:  
+  1.figure out how to design well defined and meaningful features that can be applied to training
+  2.observed the convergence condition of the loss and parameters and find out the regulation of training
+for detailed explanation see '网络训练总结.pdf'  
 
-__problems__  
-see pdf in the repo
+
 
 
 
