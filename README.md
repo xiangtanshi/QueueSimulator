@@ -15,12 +15,16 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 
 __codes,expriment results__  
-The codes(queue_simulator.py) and corresponding running results have already been uploaded, and it solves the problems of simulating   complex queue network with known structure and unknown continuous parameters.  
-The codes(queue_simulator.py) utilizes the SmoothL1loss function and serves for 2 purposes:  
+The codes(queue_simulator.py,wgan_simu.py) and corresponding running results have already been uploaded, and the former solves the problems of simulating  complex queue network with known structure and unknown continuous parameters.  
+
+The codes(__queue_simulator.py__) utilizes the SmoothL1loss function and serves for 2 purposes:  
     1.figure out how to design well defined and meaningful features that can be applied to training  
-    2.observed the convergence condition of the loss and parameters and find out the regulation of training   
+    2.observed the convergence condition of the loss and parameters and find out the regulation of training  
   
-for detailed explanation see    '网络训练总结.pdf'  
+  
+The codes(__wgan_simu.py__) utilizes the wgan loss(the loss function was written by myself), it behaves similarly to the queue_simulator.py in the first 20~50 epoches, while the wgan loss can not guarantee the loss and parameters to convergence or precisely speaking: converge to the ground truth values. As the outcome shows no apparent regulation, it is hard to modify the code furthermore.
+  
+for detailed explanation see  '网络训练总结.pdf'  
 
 
 __previous problems__  
