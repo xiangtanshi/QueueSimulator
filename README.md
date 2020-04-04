@@ -1,11 +1,8 @@
 #  Intro of the repo(version2)  
   *components of the repo:  
   1. ciw module  
-  2. queue simulator model code  
-  3. experiments and results  
-  4. current problems that needs to be solved  
-
-
+  2. queue simulator model code and wgan code 
+  3. experiments and reports
 
 __how to use the modified ciw module?__  
 first create a new env(python version = 3.6) with anaconda, install pytorch and ciw, the replace the ciw module with the unzipped package in the repo.  
@@ -14,21 +11,11 @@ __what is the difference between the original ciw and the modified ciw?__
 I checked the whole ciw module and changed several parts of the codes in the original ciw module to promise that it can be applied to construct a computation graph directly using pytorch. Briefly speaking, most parameters of the ciw.create_network() can be updated through SGD and other algorithms that need to compute gradients of the model's parameters. I've run quite a few simulation of different network with different structure and parameters(both very simple network and complex network) and was sure that those changes I made will not influence the simulation process and final records of the ciw module. All the functions of ciw can be used just like before.  
 
 
-__codes,expriment results__  
-The codes(queue_simulator.py,wgan_simu.py) and corresponding running results have already been uploaded, and the former solves the problems of simulating  complex queue network with known structure and unknown continuous parameters.  
-
-The codes(__queue_simulator.py__) utilizes the SmoothL1loss function and serves for 2 purposes:  
-    1.figure out how to design well defined and meaningful features that can be applied to training  
-    2.observed the convergence condition of the loss and parameters and find out the regulation of training  
-  
-  
-The codes(__wgan_simu.py__) utilizes the wgan loss(the loss function was written by myself), it behaves similarly to the queue_simulator.py in the first 20~50 epoches, while the wgan loss can not guarantee the loss and parameters to convergence or precisely speaking: converge to the ground truth values. As the outcome shows no apparent regulation, it is hard to modify the code furthermore.
-  
-for detailed explanation see  '网络训练总结.pdf'  
+__current codes,expriment results__  
+wgan训练和测试总结：“wgan训练排队系统”
+代码：original1.py和original2.py
 
 
-__previous problems__  
-see '当前进度和问题总结.pdf'
 
 
 
