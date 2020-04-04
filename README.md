@@ -12,7 +12,7 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 
 __current codes,expriment results__  
-wgan训练和测试总结：“wgan训练排队系统”
+wgan训练和测试总结：“wgan训练排队系统”  
 代码：original1.py和original2.py
 
 
