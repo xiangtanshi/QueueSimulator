@@ -12,8 +12,9 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 
 __current codes,expriment results__  
-wgan训练和测试总结：“wgan训练排队系统”  
-代码：original1.py和original2.py
+/report/'关于排队系统结构和参数的实验和调研.pdf'
+/code/complicated_NHPP.py
+/code/ex_cycle_queue_sys.py
 
 
 
