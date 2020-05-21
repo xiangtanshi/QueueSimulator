@@ -13,8 +13,7 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 __current codes,expriment results__  
 /report/'关于排队系统结构和参数的实验和调研.pdf'  
-/code/complicated_NHPP.py  
-/code/ex_cycle_queue_sys.py
+/code/service_ex.py(ultimate version with best performance)
 
 
 
