@@ -12,8 +12,8 @@ I checked the whole ciw module and changed several parts of the codes in the ori
 
 
 __current codes,expriment results__  
-/report/'关于排队系统结构和参数的实验和调研.pdf'  
-/code/service_ex.py(ultimate version with best performance)
+/report/'reports_of_experiments.ppt'  
+/code/
 
 
 
